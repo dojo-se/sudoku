@@ -4,68 +4,42 @@
 require "minitest/autorun"
 
 class TestSudoku < Minitest::Test
-  def test_that_arr_empty
-    arr = [
-            [0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0]
-          ]
+  describe "Array" do
+    it "is invalid when is empty" do
+      arr = Array.new(9) { Array.new(9) { 0 } }
 
-    assert_equal false, Sudoku.problem(arr)
-  end
+      assert_equal false, Sudoku.problem(arr)
+    end
 
-  def test_that_arr_contains_same_number_horizontally
-    arr = [
-            [1,2,3,4,5,2,7,8,9],
-            [1,2,3,4,5,2,7,8,9],
-            [1,2,3,4,5,2,7,8,9],
-            [1,2,3,4,5,2,7,8,9],
-            [1,2,3,4,5,2,7,8,9],
-            [1,2,3,4,5,2,7,8,9],
-            [1,2,3,4,5,2,7,8,9],
-            [1,2,3,4,5,2,7,8,9],
-            [1,2,3,4,5,2,7,8,9]
-          ]
+    describe "when have same number" do
+      before do
+        @arr = Array.new(9) { Array.new(9) { |i| i+1 } }
+      end
 
-    assert_equal false, Sudoku.problem(arr)
-  end
+      it "is interating horizontally" do
+        assert_equal false, Sudoku.problem(@arr)
+      end
 
-  def test_that_arr_contains_same_number_vertically
-    arr = [
-            [1,2,3,4,5,6,7,8,9],
-            [1,2,3,4,5,6,7,8,9],
-            [1,2,3,4,5,6,7,8,9],
-            [1,2,3,4,5,6,7,8,9],
-            [1,2,3,4,5,6,7,8,9],
-            [1,2,3,4,5,6,7,8,9],
-            [1,2,3,4,5,6,7,8,9],
-            [1,2,3,4,5,6,7,8,9],
-            [1,2,3,4,5,6,7,8,9]
-          ]
+      it "is interating vertically" do
+        assert_equal false, Sudoku.problem(@arr)
+      end
+    end
 
-    assert_equal false, Sudoku.problem(arr)
-  end
+    it "is valid" do
+      arr = [
+              [1,2,3,4,5,6,7,8,9],
+              [2,3,4,5,6,7,8,9,1],
+              [3,4,5,6,7,8,9,1,2],
+              [4,5,6,7,8,9,1,2,3],
+              [5,6,7,8,9,1,2,3,4],
+              [6,7,8,9,1,2,3,4,5],
+              [7,8,9,1,2,3,4,5,6],
+              [8,9,1,2,3,4,5,6,7],
+              [9,1,2,3,4,5,6,7,8]
+            ]
 
-  def test_that_arr_is_valid
-    arr = [
-            [1,2,3,4,5,6,7,8,9],
-            [2,3,4,5,6,7,8,9,1],
-            [3,4,5,6,7,8,9,1,2],
-            [4,5,6,7,8,9,1,2,3],
-            [5,6,7,8,9,1,2,3,4],
-            [6,7,8,9,1,2,3,4,5],
-            [7,8,9,1,2,3,4,5,6],
-            [8,9,1,2,3,4,5,6,7],
-            [9,1,2,3,4,5,6,7,8]
-          ]
-
-    assert_equal true, Sudoku.problem(arr)
+      assert_equal true, Sudoku.problem(arr)
+    end
   end
 end
 
