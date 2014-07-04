@@ -73,21 +73,21 @@ class Sudoku
 
   def self.problem(arr)
     # all equal to zero
-    arr.map { |line| return false if line.include?(0) }
+    arr.map { |row| return false if row.include?(0) }
 
     # same number vertically
-    first_line = arr[0]
-    first_line.map.with_index do |top, i|
+    first_row = arr[0]
+    first_row.map.with_index do |top, i|
       (1..8).map do |idx|
         return false if top == arr[i][idx]
       end
     end
 
     # same number horizontally
-    arr.map.with_index do |line, i|
-      current = line[0]
+    arr.map.with_index do |row, i|
+      current = row[0]
       (1..8).map do |idx|
-        return false if current == line[idx]
+        return false if current == row[idx]
       end
     end
 
