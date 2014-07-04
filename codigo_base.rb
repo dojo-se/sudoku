@@ -6,9 +6,9 @@
 # Para executar os testes, chame o interpretador Ruby com esse arquivo como
 # parâmetro. Ex: ruby <caminho_do_arquivo>.rb
 
-require 'test/unit'
+require "minitest/autorun"
 
-class ProblemaParaResolverTest < Test::Unit::TestCase
+class ProblemaParaResolverTest < Minitest::Test
   def test_simples
     assert_equal(true, ProblemaParaResolver.problema)
   end
