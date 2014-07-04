@@ -1,82 +1,97 @@
-# encoding: utf-8
+# http://dojopuzzles.com/problemas/exibe/sudoku/
+# DOJO 2014-07-03 (DPSistemas)
 
-# Esqueleto de código Ruby para uso no Dojo-SE
-# Escrito por Breno Augusto Santana Moura <basmoura@gmail.com>.
-# 
-# Para executar os testes, chame o interpretador Ruby com esse arquivo como
-# parâmetro. Ex: ruby <caminho_do_arquivo>.rb
+require "minitest/autorun"
 
-require 'minitest/autorun'
+class TestSudoku < Minitest::Test
+  def test_that_arr_empty
+    arr = [
+            [0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0]
+          ]
 
-class ProblemaParaResolverTest < Minitest::Test
-	def test_quando_a_matriz_for_vazia
-		mSudokuVazio = [[0,0,0,0,0,0,0,0,0],
-									 [0,0,0,0,0,0,0,0,0],
-									 [0,0,0,0,0,0,0,0,0],
-									 [0,0,0,0,0,0,0,0,0],		
-									 [0,0,0,0,0,0,0,0,0],
-									 [0,0,0,0,0,0,0,0,0],		
-									 [0,0,0,0,0,0,0,0,0],	
-									 [0,0,0,0,0,0,0,0,0],
-						  		 [0,0,0,0,0,0,0,0,0]]
-		
-		assert_equal(true, ProblemaParaResolver.problema(mSudokuVazio))
+    assert_equal false, Sudoku.problem(arr)
   end
-	
-	def test_dois_1_na_horizontal
- 		mSudokuDoisUnsHorizontal = [[0,0,0,0,0,0,0,0,0],
-									 [0,0,0,0,0,0,0,0,0],
-									 [0,0,0,0,0,0,0,0,0],
-									 [0,0,0,0,0,0,0,0,0],		
-									 [0,0,0,0,0,0,0,0,0],
-									 [0,0,0,0,0,0,0,0,0],		
-									 [0,0,0,1,0,1,0,0,0],	
-									 [0,0,0,0,0,0,0,0,0],
-						  		 [0,0,0,0,0,0,0,0,0]]
-		
-		assert_equal(false, ProblemaParaResolver.problema(mSudokuDoisUnsHorizontal))
-	end
-	
-	def test_quando_houver_uma_linha_horizontal_corretamente_preenchida
-				mSudokuHorizontalCerto = [
-									 [0,0,0,0,0,0,0,0,0],
-									 [0,0,0,0,0,0,0,0,0],
-									 [1,2,3,4,5,6,7,8,9],
-									 [0,0,0,0,0,0,0,0,0],		
-									 [0,0,0,0,0,0,0,0,0],
-									 [0,0,0,0,0,0,0,0,0],		
-									 [0,0,0,0,0,0,0,0,0],	
-									 [0,0,0,0,0,0,0,0,0],
-						  		 [0,0,0,0,0,0,0,0,0]
-					]
-		assert_equal(true, ProblemaParaResolver.problema(mSudokuHorizontalCerto))
-	end
+
+  def test_that_arr_contains_same_number_horizontally
+    arr = [
+            [1,2,3,4,5,2,7,8,9],
+            [1,2,3,4,5,2,7,8,9],
+            [1,2,3,4,5,2,7,8,9],
+            [1,2,3,4,5,2,7,8,9],
+            [1,2,3,4,5,2,7,8,9],
+            [1,2,3,4,5,2,7,8,9],
+            [1,2,3,4,5,2,7,8,9],
+            [1,2,3,4,5,2,7,8,9],
+            [1,2,3,4,5,2,7,8,9]
+          ]
+
+    assert_equal false, Sudoku.problem(arr)
+  end
+
+  def test_that_arr_contains_same_number_vertically
+    arr = [
+            [1,2,3,4,5,6,7,8,9],
+            [1,2,3,4,5,6,7,8,9],
+            [1,2,3,4,5,6,7,8,9],
+            [1,2,3,4,5,6,7,8,9],
+            [1,2,3,4,5,6,7,8,9],
+            [1,2,3,4,5,6,7,8,9],
+            [1,2,3,4,5,6,7,8,9],
+            [1,2,3,4,5,6,7,8,9],
+            [1,2,3,4,5,6,7,8,9]
+          ]
+
+    assert_equal false, Sudoku.problem(arr)
+  end
+
+  def test_that_arr_is_valid
+    arr = [
+            [1,2,3,4,5,6,7,8,9],
+            [2,3,4,5,6,7,8,9,1],
+            [3,4,5,6,7,8,9,1,2],
+            [4,5,6,7,8,9,1,2,3],
+            [5,6,7,8,9,1,2,3,4],
+            [6,7,8,9,1,2,3,4,5],
+            [7,8,9,1,2,3,4,5,6],
+            [8,9,1,2,3,4,5,6,7],
+            [9,1,2,3,4,5,6,7,8]
+          ]
+
+    assert_equal true, Sudoku.problem(arr)
+  end
 end
 
-class ProblemaParaResolver
-  def self.problema(mSudoku)
-		prev = mSudoku[0][0]
-		#i = 1
-		9.times do |i|
-			(9-i).times do |idx|
-				return false if prev == mSudoku[idx][0]
-				prev = mSudoku[i][0]
-				#i += 1
-			end
-		end
-		
-# 		mSudoku.map do |k, linha|
-# 			linhaTemp=linha.sort
-# 			celulaAnterior = 0
-# 			linhaTemp.map do |celula|
-# 				if celulaAnterior == celula and celula != 0
-# 					return false
-# 				else
-# 					celulaAnterior = celula
-# 				end
-# 			end
-# 		end
-		
-#     true
+class Sudoku
+
+  def self.problem(arr)
+    # all equal to zero
+    arr.map { |line| return false if line.include?(0) }
+
+    # same number vertically
+    first_line = arr[0]
+    first_line.map.with_index do |top, i|
+      (1..8).map do |idx|
+        return false if top == arr[i][idx]
+      end
+    end
+
+    # same number horizontally
+    arr.map.with_index do |line, i|
+      current = line[0]
+      (1..8).map do |idx|
+        return false if current == line[idx]
+      end
+    end
+
+    true
   end
+
 end
